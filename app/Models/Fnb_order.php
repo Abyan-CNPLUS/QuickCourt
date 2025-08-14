@@ -24,8 +24,9 @@ class Fnb_order extends Model
         return $this->belongsTo(Booking::class);
     }
 
-    public function items() {
-        return $this->hasMany(FnbOrderItem::class);
+    public function items()
+    {
+        return $this->hasMany(FnbOrderItem::class, 'fnb_order_id');
     }
 
 }

@@ -99,7 +99,7 @@ class VenuesController extends Controller
             foreach ($validatedData['image_urls'] as $index => $url) {
                 DB::table('venue_images')->insert([
                     'venue_id' => $venue->id,
-                    'image_url' => $url, // langsung simpan URL
+                    'image_url' => $url,
                     'is_primary' => ($request->hasFile('images') ? false : ($index === 0)),
                     'created_at' => now(),
                     'updated_at' => now(),
@@ -222,7 +222,7 @@ class VenuesController extends Controller
             DB::table('venue_images')
                 ->where('venue_id', $venue->id)
                 ->update(['is_primary' => 0]);
-                
+
             DB::table('venue_images')
                 ->where('id', $validatedData['primary_image_id'])
                 ->where('venue_id', $venue->id)

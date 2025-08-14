@@ -16,9 +16,4 @@ class VenueImage extends Model
     {
         return $this->belongsTo(Venues::class, 'venue_id');
     }
-
-    public function getImageUrlAttribute($value)
-    {
-        return asset('storage/' . $value);
-    }
 }
