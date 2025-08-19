@@ -10,9 +10,18 @@ class Venues extends Model
     use HasFactory;
     protected $table = 'venues';
     protected $primaryKey = 'id';
-
+    protected $appends = ['image_url'];
     protected $guarded = [];
-
+    // Tambahkan semua field yang bisa diisi
+    protected $fillable = [
+    'name',
+    'category_id',
+    'address',
+    'capacity',
+    'price',
+    'city_id',
+    'status',
+];
     public function category()
     {
         return $this->belongsTo(Category::class);
@@ -26,7 +35,14 @@ class Venues extends Model
     {
         return $this->hasMany(VenueImage::class, 'venue_id');
     }
+{
+    return $this->hasMany(VenueImage::class, 'venue_id'); // pastikan 'venue_id' sesuai kolom
+}
 
+public function getImageUrlAttribute() {
+    $image = $this->images->first();
+    return $image ? asset('storage/' . $image->image_url) : null;
+}
     public function primaryImage()
     {
         return $this->hasOne(VenueImage::class, 'venue_id')->where('is_primary', true);
